@@ -4,92 +4,93 @@
 
 @layer base {
   :root {
-    /* Light Theme (clean + modern) */
-    --background: 210 40% 98%;
-    --foreground: 222 22% 10%;
+    /* Light Theme - Modern & Clean with vibrant accents */
+    --background: 0 0% 99%;
+    --foreground: 240 10% 4%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 18% 10%;
+    --card-foreground: 240 10% 4%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 18% 10%;
+    --popover-foreground: 240 10% 4%;
 
-    /* Cyan primary with a tiny hint of "tech" */
-    --primary: 191 95% 45%;
-    --primary-foreground: 210 40% 98%;
+    /* Vibrant gradient-ready primary (purple-blue) */
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 20% 94%;
-    --secondary-foreground: 222 22% 10%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 6% 10%;
 
-    --muted: 210 18% 92%;
-    --muted-foreground: 222 10% 42%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
 
-    --accent: 268 90% 60%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 204 94% 54%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --success: 142 70% 45%;
-    --success-foreground: 210 40% 98%;
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
 
     --warning: 38 92% 50%;
-    --warning-foreground: 210 40% 98%;
+    --warning-foreground: 0 0% 100%;
 
-    --border: 214 16% 86%;
-    --input: 214 16% 86%;
-    --ring: 191 95% 45%;
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 262 83% 58%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 210 40% 97%;
-    --sidebar-foreground: 222 10% 40%;
-    --sidebar-primary: 191 95% 45%;
-    --sidebar-border: 214 16% 86%;
+    --sidebar-background: 240 5% 98%;
+    --sidebar-foreground: 240 5% 35%;
+    --sidebar-primary: 262 83% 58%;
+    --sidebar-border: 240 6% 92%;
   }
 
   .dark {
-    /* Dark Theme (sleek slate + neon-cyan accent) */
-    --background: 222 47% 7%;
-    --foreground: 210 40% 98%;
+    /* Dark Theme - Deep slate with electric accents */
+    --background: 240 10% 4%;
+    --foreground: 0 0% 98%;
 
-    --card: 222 38% 10%;
-    --card-foreground: 210 40% 98%;
+    --card: 240 10% 7%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 222 38% 10%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 240 10% 7%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 191 95% 50%;
-    --primary-foreground: 222 47% 7%;
+    /* Electric purple-blue for dark mode */
+    --primary: 262 80% 62%;
+    --primary-foreground: 240 10% 4%;
 
-    --secondary: 222 28% 14%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 240 6% 12%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 222 20% 18%;
-    --muted-foreground: 215 15% 68%;
+    --muted: 240 5% 15%;
+    --muted-foreground: 240 5% 65%;
 
-    --accent: 268 90% 65%;
-    --accent-foreground: 222 47% 7%;
+    --accent: 204 94% 60%;
+    --accent-foreground: 240 10% 4%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --success: 142 70% 45%;
-    --success-foreground: 210 40% 98%;
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
 
     --warning: 38 92% 50%;
-    --warning-foreground: 210 40% 98%;
+    --warning-foreground: 240 10% 4%;
 
-    --border: 222 22% 18%;
-    --input: 222 22% 18%;
-    --ring: 191 95% 50%;
+    --border: 240 6% 18%;
+    --input: 240 6% 18%;
+    --ring: 262 80% 62%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 222 47% 6%;
-    --sidebar-foreground: 215 15% 70%;
-    --sidebar-primary: 191 95% 50%;
-    --sidebar-border: 222 22% 14%;
+    --sidebar-background: 240 10% 5%;
+    --sidebar-foreground: 240 5% 70%;
+    --sidebar-primary: 262 80% 62%;
+    --sidebar-border: 240 6% 16%;
   }
 
   * {
@@ -104,50 +105,76 @@
 }
 
 @layer utilities {
-  /* App-wide “reference-image” vibe: soft gradients + subtle plane watermark */
+  /* Modern gradient hero with mesh effect */
   .app-hero {
-    background-image:
-      radial-gradient(1200px 600px at 15% 10%, hsl(var(--primary) / 0.18), transparent 55%),
-      radial-gradient(900px 520px at 85% 20%, hsl(var(--accent) / 0.16), transparent 55%),
-      radial-gradient(700px 380px at 50% 92%, hsl(var(--primary) / 0.08), transparent 60%),
+    background: 
+      radial-gradient(ellipse 1400px 700px at 20% 15%, hsl(var(--primary) / 0.15), transparent 50%),
+      radial-gradient(ellipse 1000px 600px at 80% 25%, hsl(var(--accent) / 0.12), transparent 50%),
+      radial-gradient(ellipse 800px 400px at 50% 90%, hsl(var(--primary) / 0.08), transparent 60%),
+      linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--background))),
       url('/plane.svg');
     background-repeat: no-repeat;
-    background-size: cover, cover, cover, 900px;
-    background-position: center, center, center, 75% 35%;
+    background-size: cover, cover, cover, cover, 900px;
+    background-position: center, center, center, center, 75% 35%;
   }
 
   .glass {
-    @apply bg-background/60 backdrop-blur-xl border border-border/60 shadow-sm;
+    @apply bg-background/80 backdrop-blur-xl border border-border/60 shadow-lg;
   }
 
   .neu-flat {
-    @apply bg-card border border-border shadow-sm;
+    @apply bg-card border border-border shadow-md hover:shadow-lg transition-shadow duration-300;
   }
 
   .arctic-btn {
-    @apply glass hover:bg-background/70 active:scale-[0.98] transition;
+    @apply glass hover:bg-background/90 active:scale-[0.98] transition-all duration-200;
   }
 
   .compact-card {
-    @apply bg-card border border-border rounded-lg shadow-sm;
+    @apply bg-card border border-border rounded-xl shadow-sm hover:shadow-md transition-all duration-300;
   }
 
   .compact-btn {
-    @apply px-4 py-2 rounded-md border border-border bg-secondary/50 hover:bg-secondary hover:border-primary/50 transition-all duration-200 text-sm font-medium;
+    @apply px-5 py-2.5 rounded-lg border border-border bg-card hover:bg-accent/5 hover:border-accent/50 transition-all duration-200 text-sm font-medium;
   }
 
   .option-btn {
-    @apply w-full text-left px-4 py-3 rounded-md border border-border
-           bg-secondary/30 hover:bg-secondary hover:border-primary/40
-           transition-all duration-150 flex items-center gap-3;
+    @apply w-full text-left px-5 py-4 rounded-xl border-2 border-border
+           bg-card hover:bg-accent/5 hover:border-accent/40 hover:shadow-md
+           transition-all duration-200 flex items-center gap-4 cursor-pointer
+           active:scale-[0.99];
+  }
+
+  .option-btn:disabled {
+    @apply cursor-not-allowed;
   }
 
   .option-btn-correct {
-    @apply border-success/50 bg-success/10 text-success font-medium;
+    @apply border-success bg-success/10 shadow-success/20 shadow-lg;
   }
 
   .option-btn-wrong {
-    @apply border-destructive/50 bg-destructive/10 text-destructive font-medium;
+    @apply border-destructive bg-destructive/10 shadow-destructive/20 shadow-lg;
+  }
+
+  /* Gradient button */
+  .gradient-btn {
+    @apply bg-gradient-to-r from-primary to-accent text-white font-semibold
+           py-3 px-6 rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02]
+           active:scale-[0.98] transition-all duration-200;
+  }
+
+  /* Stat card with gradient border effect */
+  .stat-card {
+    @apply relative bg-card rounded-2xl p-6 overflow-hidden;
+  }
+  
+  .stat-card::before {
+    content: '';
+    @apply absolute inset-0 rounded-2xl p-[2px] bg-gradient-to-br from-primary/30 via-accent/20 to-transparent;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
   }
 
   .pb-safe {
@@ -158,12 +185,45 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
   }
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
+    @apply bg-muted/30 rounded-full;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-muted rounded-full;
+    @apply bg-primary/40 rounded-full hover:bg-primary/60 transition-colors;
+  }
+
+  /* Smooth animations */
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Loading shimmer effect */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--muted) / 0.5) 50%,
+      hsl(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
   }
 }
