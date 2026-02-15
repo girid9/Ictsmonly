@@ -20,7 +20,7 @@ const Practice = () => {
   const { bookmarkedIds, recordAnswer, toggleBookmark, setLastVisited, settings, updateSettings } = useProgressStore();
   const setSessionResult = useDataStore((s) => s.setSessionResult);
 
-  const timeLimitSec: number | null = (location.state as any)?.timeLimitSec ?? null;
+  const timeLimitSec: number | null = (location.state as { timeLimitSec?: number })?.timeLimitSec ?? null;
 
   const rawQuestions = useMemo(() => {
     if (!subjectId || !topicId) return [];

@@ -9,7 +9,7 @@ const Topics = () => {
   const { subjects, topicsBySubject, questionsBySubjectTopic } = useDataStore();
   const { answers } = useProgressStore();
   const subject = subjects.find((s) => s.id === subjectId);
-  const topics = topicsBySubject[subjectId || ""] || [];
+  const topics = useMemo(() => topicsBySubject[subjectId || ""] || [], [topicsBySubject, subjectId]);
 
   const topicsWithProgress = useMemo(() => {
     if (!subjectId) return [];
