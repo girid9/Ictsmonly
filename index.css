@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Sky-Blue Travel (reference style) */
+    \1214 60% 96%;
+    \1222 47% 11%;
+
+    /* Light glass cards (opacity controlled via Tailwind /xx) */
+    \10 0% 100%;
+    \1222 47% 11%;
+
+    \10 0% 100%;
+    \1222 47% 11%;
+
+    /* Neon Lime Primary (like the reference yellow-green buttons) */
+    \169 100% 50%;
+    \1222 47% 11%;
+
+    /* Soft deep-blue secondary */
+    \1214 55% 90%;
+    \1222 47% 11%;
+
+    \1214 40% 92%;
+    \1215 16% 36%;
+
+    \169 100% 50%;
+    \1222 47% 11%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 70% 45%;
+    --success-foreground: 210 40% 98%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 210 40% 98%;
+
+    \1214 30% 85%;
+    \1214 30% 85%;
+    \169 100% 50%;
+
+    --radius: 1rem;
+
+    --sidebar-background: 214 60% 14%;
+    --sidebar-foreground: 214 25% 85%;
+    --sidebar-primary: 69 100% 50%;
+    --sidebar-primary-foreground: 222 47% 4%;
+    --sidebar-accent: 214 45% 20%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 214 40% 20%;
+    --sidebar-ring: 69 100% 50%;
+  }
+
+  .dark {
+    \1214 60% 16%;
+    \1210 40% 98%;
+
+    \1214 55% 18%;
+    \1210 40% 98%;
+
+    \1214 55% 18%;
+    \1210 40% 98%;
+
+    \169 100% 50%;
+    \1222 47% 4%;
+
+    \1214 45% 22%;
+    \1210 40% 98%;
+
+    \1214 35% 24%;
+    \1215 20% 70%;
+
+    \169 100% 50%;
+    \1222 47% 4%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    \1214 30% 28%;
+    \1214 30% 28%;
+    \169 100% 50%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply text-foreground min-h-screen bg-background;
+    /* Sky gradient + soft highlight (matches the reference vibe) */
+    background-image:
+      radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.22) 0%, transparent 55%),
+      linear-gradient(180deg, #2F5D9F 0%, #6FA4E8 60%, #A7C7F2 100%);
+    background-attachment: fixed;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    /* Brighter, airy glass */
+    @apply bg-white/15 backdrop-blur-2xl border border-white/25 rounded-2xl shadow-2xl;
+  }
+
+  .option-btn {
+    @apply w-full text-left px-6 py-5 rounded-2xl border border-white/20
+           bg-white/10 hover:bg-white/18 hover:border-white/35
+           transition-all duration-300 flex items-center gap-4 shadow-lg;
+  }
+
+  .btn-gradient {
+    /* Neon-lime CTA like the reference */
+    background: linear-gradient(135deg, #D9FF00 0%, #BFFF00 100%);
+    @apply text-black shadow-lg shadow-lime-400/30;
+  }
+
+  .btn-gradient:hover {
+    @apply opacity-90;
+  }
+
+  .option-btn-correct {
+    @apply border-success bg-success/20 text-foreground ring-1 ring-success;
+  }
+
+  .option-btn-correct span:first-child {
+    @apply bg-success text-success-foreground;
+  }
+
+  .option-btn-wrong {
+    @apply border-destructive bg-destructive/20 text-foreground ring-1 ring-destructive;
+  }
+
+  .option-btn-wrong span:first-child {
+    @apply bg-destructive text-destructive-foreground;
+  }
+
+  .option-btn-disabled {
+    @apply opacity-60 cursor-not-allowed hover:bg-secondary/50 hover:border-border;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+
+/* App background (sky + plane) */
+@layer base {
+  body {
+    background-image:
+      radial-gradient(1200px 600px at 20% 15%, rgba(255,255,255,0.55), rgba(255,255,255,0) 60%),
+      linear-gradient(180deg, #2F5D9F 0%, #5E8BCB 55%, #A7C7F2 100%),
+      url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%201200%20600%27%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%27g%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%271%27%20y2%3D%271%27%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%270%27%20stop-color%3D%27white%27%20stop-opacity%3D%270.55%27/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%271%27%20stop-color%3D%27white%27%20stop-opacity%3D%270.05%27/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%3C/defs%3E%0A%20%20%3Cg%20fill%3D%27none%27%20stroke%3D%27url%28%23g%29%27%20stroke-width%3D%2714%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%20opacity%3D%270.55%27%3E%0A%20%20%20%20%3Cpath%20d%3D%27M80%20420%20L720%20260%20L1120%20340%27%20/%3E%0A%20%20%20%20%3Cpath%20d%3D%27M380%20360%20L720%20260%20L860%20150%27%20/%3E%0A%20%20%20%20%3Cpath%20d%3D%27M520%20395%20L720%20260%20L910%20255%27%20/%3E%0A%20%20%20%20%3Cpath%20d%3D%27M650%20450%20L720%20260%20L1010%20430%27%20/%3E%0A%20%20%3C/g%3E%0A%20%20%3Cg%20opacity%3D%270.12%27%20fill%3D%27white%27%3E%0A%20%20%20%20%3Cpath%20d%3D%27M690%20260%20L1120%20340%20L1040%20370%20L700%20295%20Z%27/%3E%0A%20%20%20%20%3Cpath%20d%3D%27M690%20260%20L860%20150%20L830%20220%20L720%20275%20Z%27/%3E%0A%20%20%3C/g%3E%0A%3C/svg%3E");
+    background-size: auto, cover, 1200px auto;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-position: top left, center, 70% 35%;
+    background-attachment: fixed, fixed, fixed;
+  }
+
+  .dark body {
+    background-image:
+      radial-gradient(900px 500px at 25% 10%, rgba(255,255,255,0.12), rgba(255,255,255,0) 60%),
+      linear-gradient(180deg, #0B1B38 0%, #123564 55%, #1E4F8B 100%),
+      url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%201200%20600%27%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%27g%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%271%27%20y2%3D%271%27%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%270%27%20stop-color%3D%27white%27%20stop-opacity%3D%270.55%27/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%271%27%20stop-color%3D%27white%27%20stop-opacity%3D%270.05%27/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%3C/defs%3E%0A%20%20%3Cg%20fill%3D%27none%27%20stroke%3D%27url%28%23g%29%27%20stroke-width%3D%2714%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%20opacity%3D%270.55%27%3E%0A%20%20%20%20%3Cpath%20d%3D%27M80%20420%20L720%20260%20L1120%20340%27%20/%3E%0A%20%20%20%20%3Cpath%20d%3D%27M380%20360%20L720%20260%20L860%20150%27%20/%3E%0A%20%20%20%20%3Cpath%20d%3D%27M520%20395%20L720%20260%20L910%20255%27%20/%3E%0A%20%20%20%20%3Cpath%20d%3D%27M650%20450%20L720%20260%20L1010%20430%27%20/%3E%0A%20%20%3C/g%3E%0A%20%20%3Cg%20opacity%3D%270.12%27%20fill%3D%27white%27%3E%0A%20%20%20%20%3Cpath%20d%3D%27M690%20260%20L1120%20340%20L1040%20370%20L700%20295%20Z%27/%3E%0A%20%20%20%20%3Cpath%20d%3D%27M690%20260%20L860%20150%20L830%20220%20L720%20275%20Z%27/%3E%0A%20%20%3C/g%3E%0A%3C/svg%3E");
+    background-size: auto, cover, 1200px auto;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-position: top left, center, 70% 35%;
+    background-attachment: fixed, fixed, fixed;
+    filter: saturate(1.05);
+  }
+}
