@@ -1,8 +1,42 @@
 import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BookOpen, ArrowRight, Target, TrendingUp, Search, Clock, Timer } from "lucide-react";
+import { 
+  BookOpen, 
+  ArrowRight, 
+  Target, 
+  TrendingUp, 
+  Search, 
+  Clock, 
+  Timer, 
+  Bookmark, 
+  Zap,
+  BarChart3,
+  ChevronRight,
+  Sparkles
+} from "lucide-react";
 import { useDataStore, useProgressStore } from "@/store/useAppStore";
 import { search } from "@/services/questionBank";
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+  }
+};
 
 const Home = () => {
   const { subjects, questionsBySubjectTopic } = useDataStore();
@@ -20,93 +54,187 @@ const Home = () => {
     return { total, answered, correct, accuracy, bookmarks: bookmarkedIds.length, streak };
   }, [questionsBySubjectTopic, answers, bookmarkedIds, streak]);
 
+  const statCards = [
+    { 
+      label: "Accuracy", 
+      value: `${stats.accuracy}%`, 
+      icon: TrendingUp, 
+      color: "from-emerald-500 to-emerald-600",
+      bgColor: "bg-emerald-500/10",
+      textColor: "text-emerald-600"
+    },
+    { 
+      label: "Answered", 
+      value: stats.answered, 
+      icon: Target, 
+      color: "from-blue-500 to-blue-600",
+      bgColor: "bg-blue-500/10",
+      textColor: "text-blue-600"
+    },
+    { 
+      label: "Streak", 
+      value: `${stats.streak}d`, 
+      icon: Zap, 
+      color: "from-orange-500 to-orange-600",
+      bgColor: "bg-orange-500/10",
+      textColor: "text-orange-600"
+    },
+    { 
+      label: "Bookmarks", 
+      value: stats.bookmarks, 
+      icon: Bookmark, 
+      color: "from-violet-500 to-violet-600",
+      bgColor: "bg-violet-500/10",
+      textColor: "text-violet-600"
+    },
+  ];
+
+  const quickActions = [
+    { to: "/subjects", icon: BookOpen, label: "Browse Subjects", desc: "Explore all topics" },
+    { to: "/time-based", icon: Timer, label: "Time Based", desc: "Practice with timer" },
+    { to: "/bookmarks", icon: Bookmark, label: "Bookmarks", desc: "Saved questions" },
+  ];
+
   return (
-    <div className="p-4 md:p-8 max-w-5xl mx-auto bg-background min-h-screen">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground mb-1">Dashboard</h1>
-        <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">Performance Overview</p>
-      </div>
-
-      {/* Stats Grid - Compact */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        {[
-          { label: "Accuracy", value: `${stats.accuracy}%`, icon: TrendingUp, color: "text-primary" },
-          { label: "Answered", value: stats.answered, icon: Target, color: "text-green-500" },
-          { label: "Streak", value: `${stats.streak}d`, icon: Clock, color: "text-orange-500" },
-          { label: "Bookmarks", value: stats.bookmarks, icon: Target, color: "text-primary" },
-        ].map((stat, i) => (
-          <div key={i} className="compact-card p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <stat.icon size={14} className={stat.color} />
-              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{stat.label}</span>
-            </div>
-            <p className="text-xl font-bold">{stat.value}</p>
+    <motion.div 
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="p-4 md:p-8 max-w-6xl mx-auto min-h-screen"
+    >
+      {/* Header */}
+      <motion.div variants={itemVariants} className="mb-8">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-glow">
+            <Sparkles className="h-5 w-5 text-white" />
           </div>
-        ))}
-      </div>
+          <div>
+            <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
+            <p className="text-sm text-muted-foreground">Track your progress and practice</p>
+          </div>
+        </div>
+      </motion.div>
 
-      {/* Search - Minimal */}
-      <div className="relative mb-8">
-        <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
+      {/* Stats Grid */}
+      <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        {statCards.map((stat, i) => (
+          <motion.div 
+            key={i} 
+            whileHover={{ y: -4, transition: { duration: 0.2 } }}
+            className="bg-card border border-border rounded-2xl p-5 shadow-sm hover:shadow-md transition-all duration-300"
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <div className={`h-10 w-10 rounded-xl ${stat.bgColor} flex items-center justify-center`}>
+                <stat.icon size={18} className={stat.textColor} />
+              </div>
+            </div>
+            <p className="text-2xl font-bold text-foreground mb-1">{stat.value}</p>
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{stat.label}</p>
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* Search */}
+      <motion.div variants={itemVariants} className="relative mb-8">
+        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
         <input 
           type="text" 
           placeholder="Search subjects or topics..." 
           value={query} 
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full pl-12 pr-4 py-3 bg-card border border-border rounded-md text-sm focus:outline-none focus:border-primary/50 transition-colors" 
+          className="w-full pl-12 pr-4 py-4 bg-card border border-border rounded-2xl text-sm 
+                     focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/50 
+                     transition-all duration-200 shadow-sm" 
         />
-      </div>
+      </motion.div>
 
-      {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div className="compact-card p-6 flex flex-col justify-between">
-          <div>
-            <h2 className="text-lg font-bold mb-2">Start Practice</h2>
-            <p className="text-xs text-muted-foreground mb-6">Select a subject and begin your simulation session.</p>
+      {/* Main Actions */}
+      <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        {/* Start Practice Card */}
+        <motion.div 
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => navigate('/subjects')}
+          className="lg:col-span-2 bg-gradient-to-br from-primary to-accent rounded-2xl p-8 text-white cursor-pointer 
+                     shadow-glow hover:shadow-glow-lg transition-all duration-300 relative overflow-hidden group"
+        >
+          <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="relative z-10">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-12 w-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
+                <BookOpen size={24} className="text-white" />
+              </div>
+            </div>
+            <h2 className="text-2xl font-bold mb-2">Start Practice</h2>
+            <p className="text-white/80 mb-6 text-sm">Select a subject and begin your learning session. Track your progress as you go.</p>
+            <div className="flex items-center gap-2 text-sm font-medium">
+              <span>Browse Subjects</span>
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </div>
           </div>
-          <button 
-            onClick={() => navigate('/subjects')} 
-            className="w-full py-3 bg-primary text-primary-foreground rounded-md text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-all"
-          >
-            Browse Subjects
-          </button>
+        </motion.div>
+
+        {/* Resume Card */}
+        <motion.div 
+          whileHover={{ y: -4 }}
+          className="bg-card border border-border rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300"
+        >
+          {lastVisited ? (
+            <Link to={`/practice/${lastVisited.subjectId}/${lastVisited.topicId}`}
+              className="block h-full flex flex-col">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Clock size={18} className="text-primary" />
+                </div>
+                <span className="text-xs font-semibold text-primary uppercase tracking-wider">Resume</span>
+              </div>
+              <p className="font-semibold text-foreground mb-1 line-clamp-1">{lastVisited.topicName}</p>
+              <p className="text-sm text-muted-foreground mb-4">{lastVisited.subjectName}</p>
+              <div className="mt-auto flex items-center gap-2 text-sm font-medium text-primary">
+                <span>Continue</span>
+                <ChevronRight size={16} />
+              </div>
+            </Link>
+          ) : (
+            <div className="h-full flex flex-col items-center justify-center text-center py-8">
+              <div className="h-12 w-12 rounded-xl bg-muted flex items-center justify-center mb-4">
+                <Clock size={20} className="text-muted-foreground" />
+              </div>
+              <p className="text-sm text-muted-foreground">No recent sessions</p>
+            </div>
+          )}
+        </motion.div>
+      </motion.div>
+
+      {/* Quick Links */}
+      <motion.div variants={itemVariants}>
+        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">Quick Access</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {quickActions.map((action, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ y: -4 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Link 
+                to={action.to} 
+                className="flex items-center gap-4 p-5 bg-card border border-border rounded-2xl 
+                           hover:border-primary/30 hover:shadow-md transition-all duration-300 group"
+              >
+                <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:shadow-glow transition-all duration-300">
+                  <action.icon size20="" className="text-primary group-hover:text-white transition-colors" />
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground">{action.label}</p>
+                  <p className="text-xs text-muted-foreground">{action.desc}</p>
+                </div>
+                <ChevronRight size={18} className="ml-auto text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+              </Link>
+            </motion.div>
+          ))}
         </div>
-
-        {lastVisited ? (
-          <Link to={`/practice/${lastVisited.subjectId}/${lastVisited.topicId}`}
-            className="compact-card p-6 flex items-center justify-between hover:border-primary/30 transition-all group">
-            <div>
-              <p className="text-[10px] text-primary font-bold uppercase tracking-widest mb-1">Resume Last Session</p>
-              <p className="font-bold text-sm truncate max-w-[200px]">{lastVisited.topicName}</p>
-              <p className="text-[10px] text-muted-foreground uppercase font-bold mt-1">{lastVisited.subjectName}</p>
-            </div>
-            <div className="h-10 w-10 rounded bg-muted flex items-center justify-center group-hover:bg-primary/10 transition-all">
-              <ArrowRight size={18} className="text-primary group-hover:translate-x-1 transition-transform" />
-            </div>
-          </Link>
-        ) : (
-          <div className="compact-card p-6 flex items-center justify-center border-dashed">
-            <p className="text-xs text-muted-foreground font-medium italic">No recent sessions found</p>
-          </div>
-        )}
-      </div>
-
-      {/* Secondary Links */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-        <Link to="/subjects" className="compact-card p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors">
-          <BookOpen size={16} className="text-primary" />
-          <span className="text-xs font-bold uppercase tracking-wider">Subjects</span>
-        </Link>
-        <Link to="/time-based" className="compact-card p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors">
-          <Timer size={16} className="text-primary" />
-          <span className="text-xs font-bold uppercase tracking-wider">Time Based</span>
-        </Link>
-        <Link to="/bookmarks" className="compact-card p-4 flex items-center gap-3 hover:bg-muted/50 transition-colors">
-          <Target size={16} className="text-primary" />
-          <span className="text-xs font-bold uppercase tracking-wider">Bookmarks</span>
-        </Link>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
