@@ -1,0 +1,86 @@
+import { NavLink } from "react-router-dom";
+import {
+  Home,
+  BookOpen,
+  Bookmark,
+  XCircle,
+  X,
+  Clock,
+  Timer
+} from "lucide-react";
+import { useProgressStore } from "@/store/useAppStore";
+
+const links = [
+  { to: "/", icon: Home, label: "Dashboard" },
+  { to: "/subjects", icon: BookOpen, label: "Subjects" },
+  { to: "/time-based", icon: Timer, label: "Time Based" },
+  { to: "/bookmarks", icon: Bookmark, label: "Bookmarks" },
+  { to: "/wrong", icon: XCircle, label: "Review" },
+];
+
+interface Props {
+  onClose: () => void;
+}
+
+export function AppSidebar({ onClose }: Props) {
+  const { streak } = useProgressStore();
+
+  return (
+    <div className="w-64 h-full bg-sidebar-background flex flex-col border-r border-sidebar-border">
+      {/* Logo Section */}
+      <div className="h-16 flex items-center justify-between px-6 border-b border-sidebar-border">
+        <div className="flex items-center gap-2">
+          <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
+            <span className="text-primary-foreground font-bold text-lg">Q</span>
+          </div>
+          <span className="font-bold text-sm tracking-tight text-foreground uppercase">Quest Ace</span>
+        </div>
+        <button
+          onClick={onClose}
+          className="md:hidden p-2 hover:bg-muted rounded-md transition-colors"
+        >
+          <X size={18} />
+        </button>
+      </div>
+
+      {/* Stats Summary */}
+      <div className="p-4 border-b border-sidebar-border">
+        <div className="bg-muted/30 p-3 rounded border border-border/50">
+          <div className="flex items-center gap-2 mb-1">
+            <Clock size={12} className="text-orange-500" />
+            <span className="text-[10px] font-bold text-muted-foreground uppercase">Streak</span>
+          </div>
+          <p className="text-sm font-bold">{streak} days</p>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <nav className="flex-1 p-3 space-y-1 overflow-y-auto custom-scrollbar">
+        {links.map(({ to, icon: Icon, label }) => (
+          <NavLink
+            key={to}
+            to={to}
+            end={to === "/"}
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-4 py-2.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all ${
+                isActive
+                  ? "bg-primary/10 text-primary border border-primary/20"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              }`
+            }
+          >
+            <Icon size={16} />
+            {label}
+          </NavLink>
+        ))}
+      </nav>
+
+      {/* Footer */}
+      <div className="p-4 border-t border-sidebar-border">
+        <div className="text-[9px] text-muted-foreground/50 text-center font-bold uppercase tracking-[0.2em]">
+          Quest Ace v2.1.0
+        </div>
+      </div>
+    </div>
+  );
+}
