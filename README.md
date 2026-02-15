@@ -48,4 +48,3 @@ The project is configured for automated deployment to GitHub Pages via GitHub Ac
 
 MIT
 
- 
